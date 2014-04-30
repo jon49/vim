@@ -25,6 +25,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'marijnh/tern_for_vim'
 " Bundle 'vim-scripts/backup.vim'
+Bundle 'terryma/vim-multiple-cursors'
 
 call vundle#end()
 filetype plugin indent on
@@ -65,14 +66,14 @@ set number
 set dir=D:\\soft\\installed\\Vim\\swap//,.,c:\\tmp,c:\\temp
 
 " size of a hard tabstop
-set tabstop=4
+set tabstop=3
 
 " size of an "indent"
-set shiftwidth=4
+set shiftwidth=3
 
 " a combination of spaces and tabs are used to simulate tab stops at a width
 " other than the (hard)tabstop
-set softtabstop=4
+set softtabstop=3
 
 " make "tab" insert indents instead of tabs at the beginning of a line
 set smarttab
