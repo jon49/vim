@@ -24,7 +24,7 @@ Bundle 'scrooloose/syntastic'
 " Extra items need to be installed for YouCompleteMe
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'marijnh/tern_for_vim'
-" Bundle 'vim-scripts/backup.vim'
+Bundle 'vim-scripts/backup.vim'
 
 call vundle#end()
 filetype plugin indent on
