@@ -8,7 +8,8 @@ call vundle#begin()
 " required!
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-vinegar'
-Bundle 'vim-pandoc/vim-pandoc'
+Bundle 'vim-pandoc/vim-pantondoc'
+Bundle 'vim-pandoc/vim-pandoc-syntax'
 Bundle 'sukima/xmledit'
 " Bundle 'mrtazz/simplenote.vim'
 " Javascript writing
@@ -58,6 +59,7 @@ colorscheme solarized
 
 " Adds line (for Javascript) when doing curling brackets ^c to add line.
 imap <C-c> <CR><Esc>O
+imap <C-v> <Esc>A{<Esc>li<CR><Esc>O
 
 " Turn numbers on
 set number
@@ -80,3 +82,5 @@ set smarttab
 
 " always uses spaces instead of tab characters
 set expandtab
+
+let g:pantondoc_disabled_modules=["folding"]
