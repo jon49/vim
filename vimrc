@@ -11,6 +11,8 @@ Bundle 'tpope/vim-vinegar'
 Bundle 'vim-pandoc/vim-pantondoc'
 Bundle 'vim-pandoc/vim-pandoc-syntax'
 Bundle 'sukima/xmledit'
+Bundle 'tpope/vim-surround'
+" :PluginInstall
 " Bundle 'mrtazz/simplenote.vim'
 " Javascript writing
 " See http://oli.me.uk/2013/06/29/equipping-vim-for-javascript/
