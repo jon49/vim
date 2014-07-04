@@ -20,7 +20,6 @@ Bundle 'Lokaltog/vim-distinguished'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'pangloss/vim-javascript'
-Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'Raimondi/delimitMate'
 " Extra items need to be installed for YouCompleteMe
 Bundle 'scrooloose/syntastic'
