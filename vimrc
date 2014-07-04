@@ -67,7 +67,7 @@ imap <C-v> <Esc>A{<Esc>li<CR><Esc>O
 set number
 
 " Change location of swap files
-set dir=D:\\soft\\installed\\Vim\\swap//,.,c:\\tmp,c:\\temp
+set dir=/var/tmp//
 
 " size of a hard tabstop
 set tabstop=3
