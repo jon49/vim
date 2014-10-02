@@ -6,6 +6,8 @@ call vundle#begin()
 
 " let Vundle manage Vundle
 " required!
+" run it with
+" :PluginInstall
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-vinegar'
 Bundle 'vim-pandoc/vim-pantondoc'
@@ -29,6 +31,8 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'marijnh/tern_for_vim'
 " Bundle 'vim-scripts/backup.vim'
 Bundle 'terryma/vim-multiple-cursors'
+Bundle 'gkz/vim-ls'
+Bundle 'mattn/emmet-vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -63,8 +67,10 @@ colorscheme solarized
 imap <C-c> <CR><Esc>O
 imap <C-v> <Esc>A{<Esc>li<CR><Esc>O
 
-" Turn numbers on
+" Turn row numbers on
 set number
+" Turn column numbers always on
+set ruler
 
 " Change location of swap files
 set dir=/var/tmp//
@@ -86,3 +92,8 @@ set smarttab
 set expandtab
 
 let g:pantondoc_disabled_modules=["folding"]
+
+" LiveScript
+au BufWritePost *.ls silent LiveScriptMake! -b | cwindow | redraw!
+
+set nofoldenable    " disable folding
