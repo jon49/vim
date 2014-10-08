@@ -65,6 +65,7 @@ colorscheme solarized
 " Adds line (for Javascript) when doing curling brackets ^c to add line.
 imap <C-c> <CR><Esc>O
 imap <C-v> <Esc>A {<Esc>li<CR><Esc>O
+imap <C-;> <Esc>A;<Esc>:w
 
 " Turn row numbers on
 set number
