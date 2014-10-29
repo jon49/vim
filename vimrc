@@ -65,8 +65,17 @@ colorscheme solarized
 " Adds line (for Javascript) when doing curling brackets ^c to add line.
 imap <C-c> <CR><Esc>O
 imap <C-v> <Esc>A {<Esc>li<CR><Esc>O
+imap <Tab><CR> <C-y>,
 inoremap ;<cr> <end>;<Esc>:w<cr>
-inoremap <Tab><CR> <C-y>,
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
+nmap <S-Right> :.m.+1<CR>
+nmap <S-Left> :call feedkeys( line('.')==1 ? '' : 'ddkP' )<CR>
+" Shift+Insert for pasting instead of "+p
+nmap <S-Insert> <MiddleMouse>
+
 
 " Turn row numbers on
 set number
