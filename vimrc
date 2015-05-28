@@ -1,8 +1,37 @@
-set nocompatible     " be iMproved
+set nocompatible
 filetype off      " required!
- 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+set rtp+=~/vimfiles/bundle/Vundle.vim/
+let path='~/vimfiles/bundle'
+call vundle#begin(path)
 
 " let Vundle manage Vundle
 " required!
@@ -35,7 +64,7 @@ Bundle 'Raimondi/delimitMate'
 " Extra items need to be installed for YouCompleteMe
 Bundle 'scrooloose/syntastic'
 " Extra items need to be installed for YouCompleteMe
-Bundle 'Valloric/YouCompleteMe'
+" Bundle 'Valloric/YouCompleteMe'
 Bundle 'marijnh/tern_for_vim'
 " Bundle 'vim-scripts/backup.vim'
 Bundle 'terryma/vim-multiple-cursors'
@@ -57,11 +86,11 @@ filetype plugin indent on
 " might help.
 " " YCM gives you popups and splits by default that some people might not
 " like, so these should tidy it up a bit for you.
-let g:ycm_add_preview_to_completeopt=0
-let g:ycm_confirm_extra_conf=0
-set completeopt-=preview
-let g:ycm_seed_identifiers_with_syntax=1
-let g:ycm_collect_identifiers_from_tags_files=1
+" let g:ycm_add_preview_to_completeopt=0
+" let g:ycm_confirm_extra_conf=0
+" set completeopt-=preview
+" let g:ycm_seed_identifiers_with_syntax=1
+" let g:ycm_collect_identifiers_from_tags_files=1
 
 " This does what it says on the tin. It will check your file on open too, not
 " just on save.
@@ -72,12 +101,12 @@ let g:syntastic_check_on_open=1
 filetype plugin indent on  " required!
 
 " Color scheme
-set t_Co=256
+" set t_Co=256
 " TERM=xterm-256color
 syntax enable
-" set background=dark
-set background=light
-let g:solarized_termcolors=256
+set background=dark
+" set background=light
+"let g:solarized_termcolors=256
 let g:solarized_contrast="low"
 " call togglebg#map("<F5>")
 colorscheme solarized
@@ -130,19 +159,23 @@ set number
 " Turn column numbers always on
 set ruler
 
+" http://stackoverflow.com/a/21406581/632495
+silent! call matchdelete(4)
+highlight ColorColumn ctermbg=White guibg=White
+call matchadd("ColorColumn",  "\\%81v", 100)
+
 " Change location of swap files - // at end is to create 
 " directories of backups
-set dir=/var/tmp//
+set dir=$TEMP
 
-" size of a hard tabstop
-set tabstop=2
-
-" size of an "indent"
-set shiftwidth=2
-
-" a combination of spaces and tabs are used to simulate tab stops at a width
-" other than the (hard)tabstop
-set softtabstop=2
+function! Tabs()
+  if (&filetype ==? 'yaml') || (&filetype ==? 'yml')
+    setlocal tabstop=2 shiftwidth=2 softtabstop=2
+  else
+    setlocal tabstop=4 shiftwidth=4 softtabstop=4
+  endif
+endfunction
+autocmd! BufReadPost,BufNewFile * call Tabs()
 
 " make "tab" insert indents instead of tabs at the beginning of a line
 set smarttab
@@ -161,7 +194,7 @@ set nofoldenable    " disable folding
 set smartcase
 set incsearch
 set hlsearch
-set suffixesadd=.ls,.js,.styl
+set suffixesadd=.yaml,.json,.ls,.js,.styl
 
 autocmd VimEnter * set path+=** 
 autocmd BufNewFile,BufRead *.txt setlocal spell spelllang=en_au
@@ -178,10 +211,10 @@ exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
 set list
 
 " backup files
-if !isdirectory("/home/jon/Documents/source/.bak")
-  call mkdir("/home/jon/Documents/source/.bak", "p")
-endif
-set backupdir=/home/jon/Documents/source/.bak//
+" if !isdirectory($HOME . "/source/.bak")
+"   call mkdir($HOME . "/source/.bak", "p")
+" endif
+set backupdir=$HOME/source/.bak//
 set backup
 set writebackup
 
@@ -190,3 +223,12 @@ let currentTime = strftime('%FT%T%z')
 let bkDirectory = substitute(substitute(substitute(expand('%:p:h'), '/', '%', 'g'), '\', '%', 'g'), ':', '', 'g')
 let backUpName = "let &backupext='".bkDirectory."-".currentTime."'"
 execute backUpName
+
+if has('win32')
+  " Avoid mswin.vim making Ctrl-v act as paste
+  noremap <C-V> <C-V>
+endif
+
+if has('gui_running')
+  set guifont=Consolas:h11
+endif
