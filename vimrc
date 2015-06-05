@@ -229,6 +229,13 @@ if has('win32')
   noremap <C-V> <C-V>
 endif
 
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
 if has('gui_running')
   set guifont=Consolas:h11
 endif
