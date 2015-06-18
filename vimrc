@@ -239,3 +239,5 @@ vmap <Leader>P "+P
 if has('gui_running')
   set guifont=Consolas:h11
 endif
+
+set nf=octal,hex,alpha
