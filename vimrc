@@ -1,5 +1,5 @@
 set nocompatible
-filetype off      " required!
+filetype on      " required!
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
@@ -29,83 +29,77 @@ function MyDiff()
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
 
-set rtp+=~/vimfiles/bundle/Vundle.vim/
-let path='~/vimfiles/bundle'
-call vundle#begin(path)
+call plug#begin('~/vimfiles/plugged')
 
-" let Vundle manage Vundle
-" required!
-" run it with
-" :PluginInstall
-Bundle 'gmarik/vundle'
+" TypeScript plugins
+Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
+Plug 'Shougo/unite.vim', {'for': 'typescript'}
+Plug 'Shougo/vimproc.vim', {'for': 'typescript'} | Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
+
+" keep windows as before
+Plug 'tpope/vim-obsession'
 
 " file manager using netrw
-Bundle 'rking/ag.vim'
+Plug 'tpope/vim-vinegar'
+
+Plug 'rking/ag.vim'
+
 " commenting code
-Bundle 'tomtom/tcomment_vim'
-Bundle 'bronson/vim-visual-star-search'
-Bundle 'tpope/vim-vinegar'
-Bundle 'tpope/vim-repeat'
-Bundle 'vim-pandoc/vim-pantondoc'
-" Bundle 'vim-pandoc/vim-pandoc-syntax'
-Bundle 'sukima/xmledit'
+Plug 'tomtom/tcomment_vim'
+
+Plug 'bronson/vim-visual-star-search'
+Plug 'tpope/vim-repeat'
+Plug 'sukima/xmledit'
 " fancy find/replace, change casing for words.
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-surround'
-" Bundle 'mrtazz/simplenote.vim'
-" Javascript writing
-" See http://oli.me.uk/2013/06/29/equipping-vim-for-javascript/
-Bundle 'Lokaltog/vim-distinguished'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'jelera/vim-javascript-syntax'
-Bundle 'wavded/vim-stylus'
-Bundle 'pangloss/vim-javascript'
-Bundle 'Raimondi/delimitMate'
-" Extra items need to be installed for YouCompleteMe
-Bundle 'scrooloose/syntastic'
-" Extra items need to be installed for YouCompleteMe
-" Bundle 'Valloric/YouCompleteMe'
-Bundle 'marijnh/tern_for_vim'
-" Bundle 'vim-scripts/backup.vim'
-Bundle 'terryma/vim-multiple-cursors'
-" livescript
-Bundle 'gkz/vim-ls'
-Bundle 'mattn/emmet-vim'
-" allows for parallel mult-key shortcuts
-Bundle 'kana/vim-arpeggio'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-surround'
+Plug 'Lokaltog/vim-distinguished'
+Plug 'altercation/vim-colors-solarized'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'wavded/vim-stylus'
+Plug 'pangloss/vim-javascript'
+Plug 'Raimondi/delimitMate'
+
 " snippets (powerful)
-Bundle 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 
-call vundle#end()
-filetype plugin indent on
-
-" Simplenote
-" source ~/.simplenoterc
-
-" These are the tweaks I apply to YCM's config, you don't need them but they
-" might help.
-" " YCM gives you popups and splits by default that some people might not
-" like, so these should tidy it up a bit for you.
-" let g:ycm_add_preview_to_completeopt=0
-" let g:ycm_confirm_extra_conf=0
-" set completeopt-=preview
-" let g:ycm_seed_identifiers_with_syntax=1
-" let g:ycm_collect_identifiers_from_tags_files=1
-
-" This does what it says on the tin. It will check your file on open too, not
-" just on save.
-" " You might not want this, so just leave it out if you don't.
-" Goes with Syntactic bundle
-let g:syntastic_check_on_open=1
+call plug#end()
 
 filetype plugin indent on  " required!
+
+let g:projectDir = get(g:, 'projectDir', expand('%:p:h'))
+
+" TyepScript ~~~~~~~~~~~~~~~~~~~
+function! CompileTypeScriptFile()
+    let filename=expand('%:p')
+    silent execute "!cd " . g:projectDir . " && cd ../js && npm run typescript -- " . filename
+endfunction
+set ballooneval
+augroup typeScriptGroup
+    autocmd!
+    autocmd FileType typescript setlocal completeopt+=menu,preview balloonexpr=tsuquyomi#balloonexpr()
+    autocmd FileType typescript inoremap <buffer> .. .<C-x><C-o>
+    autocmd BufWritePost /ts/*.ts :call CompileTypeScriptFile()
+augroup END
+
+let g:tsuquyomi_disable_quickfix = 1
+
+augroup npmYaml
+    autocmd!
+    autocmd BufWritePost */scripts.yml silent execute "!cd ./js && node ./tasks/scriptsPackage"
+    autocmd BufWritePost */
+augroup END
+
+set guioptions-=m  "menu bar
+set guioptions-=T  "toolbar
+set guioptions-=r  "right scrollbar
+set guioptions-=L  "left scrollbar
 
 " Color scheme
 " set t_Co=256
 " TERM=xterm-256color
 syntax enable
-set background=dark
-" set background=light
+set background=light
 "let g:solarized_termcolors=256
 let g:solarized_contrast="low"
 " call togglebg#map("<F5>")
@@ -115,58 +109,35 @@ colorscheme solarized
 let mapleader = "\<space>"
 imap <C-c> <CR><Esc>O
 imap <C-v> <Esc>A {<Esc>li<CR><Esc>O
+imap xp <C-x><C-p>
+imap xo <C-x><C-o>
 nnoremap <silent> <leader>b :ls<CR>:b<space>
 nnoremap <silent> <leader>w <C-w>w
 nnoremap <silent> <leader>W <C-w>W
+nnoremap <silent> <leader>j <C-w>j
+nnoremap <silent> <leader>k <C-w>k
+nnoremap <silent> <leader>l <C-w>l
+nnoremap <silent> <leader>h <C-w>h
 nnoremap <silent> <leader>f :find<space>
-nnoremap <silent> <leader>h :<C-u>nohlsearch<CR><C-l>
+nnoremap <silent> <leader>nh :<C-u>nohlsearch<CR><C-l>
 nnoremap <silent> <leader>! :w !sudo tee %<CR>
 nnoremap <silent> <leader>r :so %<CR>
 nmap <S-Down> :.m.+1<CR>
 nmap <S-Up> :call feedkeys( line('.')==1 ? '' : 'ddkP' )<CR>
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+nmap <Leader>c 0wC
 nnoremap j gj
 nnoremap k gk
-" Shift+Insert for pasting instead of "+p
-" nmap <S-Insert> <MiddleMouse>
-
-" Arpeggio commands
-" must call arpeggio#load() first
-call arpeggio#load()
-" execute emmet
-Arpeggio imap emt <C-y>,
-" append comma
-Arpeggio inoremap a, <END>,<Esc>:w<CR>
-" append semicolon
-Arpeggio inoremap a; <END>;<Esc>:w<CR>
-" append brace maps from above.
-Arpeggio imap ab <C-v>
-" execute ultisnip
-Arpeggio imap sn <C-j>
-Arpeggio imap je <Esc>A
-" create a function
-Arpeggio imap fn function<C-j>
-" copy in visual mode
-Arpeggio xmap yc "+y
-
-" ultisnips commands
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:UltiSnipsEditSplit="horizontal"
 
 " Turn row numbers on
 set number
 " Turn column numbers always on
 set ruler
-
-" http://stackoverflow.com/a/21406581/632495
-silent! call matchdelete(4)
-highlight ColorColumn ctermbg=White guibg=White
-call matchadd("ColorColumn",  "\\%81v", 100)
-
-" Change location of swap files - // at end is to create 
-" directories of backups
-set dir=$TEMP
 
 function! Tabs()
   if (&filetype ==? 'yaml') || (&filetype ==? 'yml')
@@ -183,22 +154,19 @@ set smarttab
 " always uses spaces instead of tab characters
 set expandtab
 
-let g:pantondoc_disabled_modules=["folding"]
-
-" LiveScript
-au BufWritePost *.ls silent LiveScriptMake! -b | cwindow | redraw!
-
+set noswapfile
 set autoread
 set autowriteall
 set nofoldenable    " disable folding
 set smartcase
 set incsearch
 set hlsearch
-set suffixesadd=.yaml,.json,.ls,.js,.styl
+set suffixesadd=.ts,.yaml,.yml,.json,.js,.styl
 
-autocmd VimEnter * set path+=** 
+" autocmd VimEnter * set path+=**
 autocmd BufNewFile,BufRead *.txt setlocal spell spelllang=en_au
 autocmd BufNewFile,BufRead *.md setlocal spell spelllang=en_au
+autocmd BufEnter * silent! lcd %:p:h
 
 " Autoreload vimrc
 " augroup reload_vimrc
@@ -210,34 +178,17 @@ autocmd BufNewFile,BufRead *.md setlocal spell spelllang=en_au
 exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
 set list
 
-" backup files
-" if !isdirectory($HOME . "/source/.bak")
-"   call mkdir($HOME . "/source/.bak", "p")
-" endif
-set backupdir=$HOME/source/.bak//
-set backup
-set writebackup
-
-" let currentTime = substitute(strftime('%FT%T%z'), ':', '', 'g')
-let currentTime = strftime('%FT%T%z')
-let bkDirectory = substitute(substitute(substitute(expand('%:p:h'), '/', '%', 'g'), '\', '%', 'g'), ':', '', 'g')
-let backUpName = "let &backupext='".bkDirectory."-".currentTime."'"
-execute backUpName
-
 if has('win32')
   " Avoid mswin.vim making Ctrl-v act as paste
   noremap <C-V> <C-V>
 endif
 
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
 
 if has('gui_running')
   set guifont=Consolas:h11
 endif
 
 set nf=octal,hex,alpha
+set encoding=utf-8
+set fileencoding=utf-8
+set directory=$HOME/vimfiles/swapfiles//
