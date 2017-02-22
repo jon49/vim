@@ -1,11 +1,16 @@
 " ~/.config/nvim/init.vim
 call plug#begin('~/.nvim/plugged')
+"
+"" typescript plugins
+"" " Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
+"" " Plug 'Shougo/unite.vim', {'for': 'typescript'}
+"" " Plug 'Shougo/vimproc.vim', {'do': 'sudo make', 'for': 'typescript'} | Plug
+"" 'Quramy/tsuquyomi', {'for': 'typescript'}
 
-" typescript plugins
-" Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-" Plug 'Shougo/unite.vim', {'for': 'typescript'}
-" Plug 'Shougo/vimproc.vim', {'do': 'sudo make', 'for': 'typescript'} | Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
-
+"Plug 'elixir-lang/vim-elixir' ", { 'for': ['elixir'] }
+"Plug 'thinca/vim-ref' ", { 'for': ['elixir'] }
+"Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh'} ", 'for': ['elixir'] }
+Plug 'ervandew/supertab'
 Plug 'tpope/vim-sensible'
 Plug 'junegunn/vim-easy-align'
 Plug 'tomtom/tcomment_vim', {'for': ['javascript', 'typescript', 'stylus', 'vim', 'html']}
@@ -19,32 +24,39 @@ Plug 'Raimondi/delimitMate' " auto close quotes, ect
 Plug 'benekastah/neomake', {
 \  'for': ['javascript', 'typescript', 'stylus']
 \} " show errors inline
-Plug 'fsharp/vim-fsharp', {
-      \ 'for': 'fsharp',
-      \ 'do':  'make fsautocomplete',
-      \}
 
-" " JavaScript
-" " JS syntax, supports ES6
-" Plug 'othree/yajs.vim', {
-" \   'for': ['javascript']
-" \}
-" " Tern auto-completion engine for JS (requires node/npm)
-" if executable('node')
-"   Plug 'marijnh/tern_for_vim', {
-" \     'do': 'npm install',
-" \     'for': ['javascript', 'coffee']
-" \   }
-" endif
-
+"" Plug 'fsharp/vim-fsharp', {
+""       \ 'for': 'fsharp',
+""             \ 'do':  'make fsautocomplete',
+""                   \}
+""
+""                   " " JavaScript
+""                   " " JS syntax, supports ES6
+""                   " Plug 'othree/yajs.vim', {
+""                   " \   'for': ['javascript']
+""                   " \}
+""                   " " Tern auto-completion engine for JS (requires node/npm)
+""                   " if executable('node')
+""                   "   Plug 'marijnh/tern_for_vim', {
+""                   " \     'do': 'npm install',
+""                   " \     'for': ['javascript', 'coffee']
+""                   " \   }
+""                   " endif
+""
 call plug#end()
+"
+"                   " typescript
+"                   " let g:tsuquyomi_tsserver_path =
+"                   '~/.node/bin/tsserver.js'
+"                   " let g:tsuquyomi_use_local_typescript=0
 
-" typescript
-" let g:tsuquyomi_tsserver_path = '~/.node/bin/tsserver.js'
-" let g:tsuquyomi_use_local_typescript=0
+" Elixir add-ins settings
+let g:elixir_docpreview=1
+let g:elixir_showerror=1
+let g:elixir_autobuild=1
 
 " Color scheme
-set t_Co=256
+" set t_Co=256
 " TERM=xterm-256color
 syntax enable
 " set background=dark
@@ -61,8 +73,8 @@ let delimitMate_expand_cr = 1
 let mapleader = "\<space>"
 imap <C-c> <CR><Esc>O
 imap <C-v> <Esc>A {<Esc>li<CR><Esc>O
-imap xp <C-x><C-p>
-imap xo <C-x><C-o>
+" imap xp <C-x><C-p>
+" imap xo <C-x><C-o>
 nnoremap <silent> <leader>b :ls<CR>:b<space>
 nnoremap <silent> <leader>w <C-w>w
 nnoremap <silent> <leader>W <C-w>W
@@ -79,7 +91,7 @@ nmap <Up> <C-w>+
 nmap <Right> <C-w>>
 nmap <Left> <C-w><
 nmap <S-Down> :.m.+1<CR>
-nmap <S-Up> :call feedkeys( line('.')==1 ? '' : 'ddkP' )<CR>
+nmap <S-Up> :call feedkeys( line('.')==1 ? '' : 'ddkP')<CR>
 vmap <Leader>y "+y
 vmap <Leader>d "+d
 nmap <Leader>p "+p
@@ -105,7 +117,8 @@ set dir=/var/tmp//
 set expandtab " Insert spaces when TAB is pressed.
 set tabstop=4 " size of a hard tabstop
 set shiftwidth=4 " Indentation amount for < and > commands.
-" set softtabstop=2 
+
+" set softtabstop=2
 set smarttab " make "tab" insert indents instead of tabs at the beginning of a line
 
 set autoread
@@ -115,7 +128,10 @@ set smartcase
 set incsearch
 set hlsearch
 set suffixesadd=.ts,.js,.styl
+set textwidth=80
 
+" first time may need to run command
+" `:set spell` which will prompt for download.
 " set path to current file
 autocmd VimEnter * set path+=** 
 autocmd BufNewFile,BufRead *.txt setlocal spell spelllang=en_au
@@ -123,3 +139,4 @@ autocmd BufNewFile,BufRead *.md setlocal spell spelllang=en_au
 
 " exit terminal
 tnoremap <Esc> <C-\><C-n>
+
