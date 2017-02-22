@@ -5,6 +5,16 @@ source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
 
+" Search down in file paths
+" Provides tab-completion for all files for all file related tasks.
+" e.g., ':find {file search}' OR ':b {file search in buffers}'
+set path+=**
+" Display all matching files when tab complete.
+set wildmenu
+
+" Simple templating in vim w/o a plugin
+" nnoremap ,html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
+
 " set diffexpr=MyDiff()
 " function MyDiff()
 "   let opt = '-a --binary '
@@ -32,6 +42,7 @@ behave mswin
 
 call plug#begin('~/vimfiles/plugged')
 
+Plug 'ervandew/supertab'
 " " TypeScript plugins
 Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 " Plug 'Shougo/unite.vim', {'for': 'typescript'}
@@ -99,7 +110,7 @@ set guioptions-=L  "left scrollbar
 " set t_Co=256
 " TERM=xterm-256color
 syntax enable
-set background=dark
+set background=light
 "let g:solarized_termcolors=256
 let g:solarized_contrast="low"
 " call togglebg#map("<F5>")
@@ -109,8 +120,8 @@ colorscheme solarized
 let mapleader = "\<space>"
 imap <C-c> <CR><Esc>O
 imap <C-v> <Esc>A {<Esc>li<CR><Esc>O
-imap xp <C-x><C-p>
-imap xo <C-x><C-o>
+" imap xp <C-x><C-p> → Use plug in.
+" imap xo <C-x><C-o>
 nnoremap <silent> <leader>b :ls<CR>:b<space>
 nnoremap <silent> <leader>w <C-w>w
 nnoremap <silent> <leader>W <C-w>W
@@ -153,6 +164,9 @@ function! Tabs()
 endfunction
 autocmd! BufReadPost,BufNewFile * call Tabs()
 
+"markdown files 80 textwidth limit
+au BufRead,BufNewFile *.md setlocal textwidth=80
+
 " make "tab" insert indents instead of tabs at the beginning of a line
 set smarttab
 
@@ -173,7 +187,7 @@ autocmd BufNewFile,BufRead *.txt setlocal spell spelllang=en_au
 autocmd BufNewFile,BufRead *.md setlocal spell spelllang=en_au
 autocmd BufEnter * silent! lcd %:p:h
 autocmd BufNewFile,BufRead *.config setlocal ft=xml
-
+autocmd BufNewFile,BufRead *.json noremap <buffer> <leader>q :%!python -m json.tool<CR>
 " Autoreload vimrc
 " augroup reload_vimrc
 "     autocmd!
