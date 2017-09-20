@@ -1,62 +1,55 @@
-" ~/.config/nvim/init.vim
+" ~/AppData/Local/nvim/init.vim      ~~~/.config/nvim/init.vim~~
 call plug#begin('~/.nvim/plugged')
-"
-"" typescript plugins
-"" " Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-"" " Plug 'Shougo/unite.vim', {'for': 'typescript'}
-"" " Plug 'Shougo/vimproc.vim', {'do': 'sudo make', 'for': 'typescript'} | Plug
-"" 'Quramy/tsuquyomi', {'for': 'typescript'}
 
-"Plug 'elixir-lang/vim-elixir' ", { 'for': ['elixir'] }
-"Plug 'thinca/vim-ref' ", { 'for': ['elixir'] }
-"Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh'} ", 'for': ['elixir'] }
-Plug 'ervandew/supertab'
-Plug 'tpope/vim-sensible'
+" Easily align code
 Plug 'junegunn/vim-easy-align'
-Plug 'tomtom/tcomment_vim', {'for': ['javascript', 'typescript', 'stylus', 'vim', 'html']}
-Plug 'mattn/emmet-vim', {'for': ['javascript', 'typescript', 'html']}
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
+
+" Just push tab!
+Plug 'ervandew/supertab'
+
 Plug 'tpope/vim-vinegar'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-repeat'
+" Not needed in NeoVim
+" Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+
+Plug 'sukima/xmledit'
+Plug 'bronson/vim-visual-star-search'
+
+" auto close quotes, ect
+Plug 'Raimondi/delimitMate'
+
+Plug 'junegunn/vim-easy-align'
+
+Plug 'mattn/emmet-vim', {'for': ['javascript', 'typescript', 'html']}
 Plug 'altercation/vim-colors-solarized'
-Plug 'wavded/vim-stylus', {'for': 'stylus'}
-Plug 'Raimondi/delimitMate' " auto close quotes, ect
 Plug 'benekastah/neomake', {
 \  'for': ['javascript', 'typescript', 'stylus']
 \} " show errors inline
 
-"" Plug 'fsharp/vim-fsharp', {
-""       \ 'for': 'fsharp',
-""             \ 'do':  'make fsautocomplete',
-""                   \}
-""
-""                   " " JavaScript
-""                   " " JS syntax, supports ES6
-""                   " Plug 'othree/yajs.vim', {
-""                   " \   'for': ['javascript']
-""                   " \}
-""                   " " Tern auto-completion engine for JS (requires node/npm)
-""                   " if executable('node')
-""                   "   Plug 'marijnh/tern_for_vim', {
-""                   " \     'do': 'npm install',
-""                   " \     'for': ['javascript', 'coffee']
-""                   " \   }
-""                   " endif
-""
-call plug#end()
+" Plug 'fsharp/vim-fsharp', {
+"       \ 'for': 'fsharp',
+"             \ 'do':  'make fsautocomplete',
+"                   \}
 "
-"                   " typescript
-"                   " let g:tsuquyomi_tsserver_path =
-"                   '~/.node/bin/tsserver.js'
-"                   " let g:tsuquyomi_use_local_typescript=0
+"                   " " JavaScript
+"                   " " JS syntax, supports ES6
+"                   " Plug 'othree/yajs.vim', {
+"                   " \   'for': ['javascript']
+"                   " \}
+"                   " " Tern auto-completion engine for JS (requires node/npm)
+"                   " if executable('node')
+"                   "   Plug 'marijnh/tern_for_vim', {
+"                   " \     'do': 'npm install',
+"                   " \     'for': ['javascript', 'coffee']
+"                   " \   }
+"                   " endif
 
-" Elixir add-ins settings
-let g:elixir_docpreview=1
-let g:elixir_showerror=1
-let g:elixir_autobuild=1
+call plug#end()
 
 " Color scheme
-" set t_Co=256
+" set termguicolors
 " TERM=xterm-256color
 syntax enable
 " set background=dark
@@ -111,7 +104,7 @@ set list
 
 " Change location of swap files - // at end is to create 
 " directories of backups
-set dir=/var/tmp//
+set dir=$HOME/vimfiles/swapfiles//
 
 " tabs
 set expandtab " Insert spaces when TAB is pressed.
@@ -121,6 +114,7 @@ set shiftwidth=4 " Indentation amount for < and > commands.
 " set softtabstop=2
 set smarttab " make "tab" insert indents instead of tabs at the beginning of a line
 
+set autochdir " change directory for whatever file you are in.
 set autoread
 set autowriteall
 set nofoldenable    " disable folding
@@ -136,7 +130,9 @@ set textwidth=80
 autocmd VimEnter * set path+=** 
 autocmd BufNewFile,BufRead *.txt setlocal spell spelllang=en_au
 autocmd BufNewFile,BufRead *.md setlocal spell spelllang=en_au
+au BufNewFile,BufRead *.md setlocal textwidth=80
 
 " exit terminal
 tnoremap <Esc> <C-\><C-n>
+
 
