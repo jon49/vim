@@ -1,11 +1,15 @@
 " ~/AppData/Local/nvim/init.vim      ~~~/.config/nvim/init.vim~~
-call plug#begin('~/.nvim/plugged')
+call plug#begin('~/AppData/Local/nvim/plugged')
 
 " Easily align code
 Plug 'junegunn/vim-easy-align'
 
 " Just push tab!
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
+
+" https://github.com/neoclide/coc.nvim
+" Intellisense using extensions from VS Code
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 Plug 'tpope/vim-vinegar'
 Plug 'tomtom/tcomment_vim'
@@ -19,8 +23,6 @@ Plug 'bronson/vim-visual-star-search'
 
 " auto close quotes, ect
 Plug 'Raimondi/delimitMate'
-
-Plug 'junegunn/vim-easy-align'
 
 Plug 'mattn/emmet-vim', {'for': ['javascript', 'typescript', 'html']}
 Plug 'altercation/vim-colors-solarized'
@@ -54,31 +56,39 @@ call plug#end()
 syntax enable
 " set background=dark
 set background=light
-let g:solarized_termcolors=256
-let g:solarized_contrast="low"
-" call togglebg#map("<F5>")
-colorscheme solarized
+" let g:solarized_termcolors=256
+" let g:solarized_contrast="low"
+" " call togglebg#map("<F5>")
+" colorscheme solarized
 
-" delimit mate
-let delimitMate_expand_cr = 1
+" " delimit mate
+" let delimitMate_expand_cr = 1
 
 " mappings
 let mapleader = "\<space>"
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+nmap gt <Plug>(EasyAlign)ip*
+nmap gtc <Plug>(EasyAlign)ip<Enter><Enter>*
+nmap gtr <Plug>(EasyAlign)ip<Enter>*
 imap <C-c> <CR><Esc>O
 imap <C-v> <Esc>A {<Esc>li<CR><Esc>O
+imap <C-e> <Esc>A
+imap <C-;> <Esc>A;<Esc>
+nnoremap <C-;> A;<Esc>
 " imap xp <C-x><C-p>
 " imap xo <C-x><C-o>
-nnoremap <silent> <leader>b :ls<CR>:b<space>
-nnoremap <silent> <leader>w <C-w>w
-nnoremap <silent> <leader>W <C-w>W
-nnoremap <silent> <leader>j <C-w>j
-nnoremap <silent> <leader>k <C-w>k
-nnoremap <silent> <leader>l <C-w>l
-nnoremap <silent> <leader>h <C-w>h
-nnoremap <silent> <leader>f :find<space>
-nnoremap <silent> <leader>nh :<C-u>nohlsearch<CR><C-l>
-nnoremap <silent> <leader>! :w !sudo tee %<CR>
-nnoremap <silent> <leader>r :so %<CR>
+nnoremap <silent> <Leader>b :ls<CR>:b<space>
+nnoremap <silent> <Leader>w <C-w>w
+nnoremap <silent> <Leader>W <C-w>W
+nnoremap <silent> <Leader>j <C-w>j
+nnoremap <silent> <Leader>k <C-w>k
+nnoremap <silent> <Leader>l <C-w>l
+nnoremap <silent> <Leader>h <C-w>h
+nnoremap <silent> <Leader>f :find<space>
+nnoremap <silent> <Leader>nh :<C-u>nohlsearch<CR><C-l>
+nnoremap <silent> <Leader>! :w !sudo tee %<CR>
+nnoremap <silent> <Leader>r :so %<CR>
 nmap <Down> <C-w>-
 nmap <Up> <C-w>+
 nmap <Right> <C-w>>
@@ -123,6 +133,7 @@ set incsearch
 set hlsearch
 set suffixesadd=.ts,.js,.styl
 set textwidth=80
+set nowrap
 
 " first time may need to run command
 " `:set spell` which will prompt for download.
