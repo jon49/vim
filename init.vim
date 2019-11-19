@@ -4,6 +4,9 @@ call plug#begin('~/AppData/Local/nvim/plugged')
 " Easily align code
 Plug 'junegunn/vim-easy-align'
 
+" Theme
+Plug 'mhartington/oceanic-next'
+
 " Just push tab!
 " Plug 'ervandew/supertab'
 
@@ -51,15 +54,11 @@ Plug 'benekastah/neomake', {
 call plug#end()
 
 " Color scheme
-" set termguicolors
-" TERM=xterm-256color
+if (has("termguicolors"))
+ set termguicolors
+endif
 syntax enable
-" set background=dark
-set background=light
-" let g:solarized_termcolors=256
-" let g:solarized_contrast="low"
-" " call togglebg#map("<F5>")
-" colorscheme solarized
+colorscheme OceanicNext
 
 " " delimit mate
 " let delimitMate_expand_cr = 1
