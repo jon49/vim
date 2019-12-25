@@ -1,5 +1,5 @@
 " ~/AppData/Local/nvim/init.vim      ~~~/.config/nvim/init.vim~~
-call plug#begin('~/AppData/Local/nvim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 " Easily align code
 Plug 'junegunn/vim-easy-align'
