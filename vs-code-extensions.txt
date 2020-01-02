@@ -1,0 +1,7 @@
+ban.spellright
+bpruitt-goddard.mermaid-markdown-syntax-highlighting
+humao.rest-client
+ms-vscode.powershell
+ritwickdey.LiveServer
+vscodevim.vim
+vstirbu.vscode-mermaid-preview
