@@ -104,6 +104,10 @@ nmap <Leader>c 0wC
 nnoremap j gj
 nnoremap k gk
 
+" Insert date
+nnoremap <Leader>d :put =strftime('%Y-%m-%d')<CR>kJ
+imap <C-d> <ESC>:put =strftime('%Y-%m-%d')<CR>kJ
+
 set number " Turn row numbers on
 set ruler " Turn column numbers always on
 
