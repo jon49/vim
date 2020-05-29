@@ -1,0 +1,34 @@
+  " Tools > Options > Environment > Keyboard
+map gr :vsc Edit.FindAllReferences<CR>
+map gp :vsc Edit.PeekDefinition<CR>
+
+" Go to definition
+nnoremap gd :vsc Edit.GoToImplementation<CR>
+nnoremap gi :vsc Edit.GoToDefinition<CR>
+
+" Uses extension
+" https://marketplace.visualstudio.com/items?itemName=munyabe.ToggleComment
+nnoremap gcc :vsc Edit.ToggleComment<CR>
+vnoremap gc :vsc Edit.ToggleComment<CR><Esc><Esc>
+nnoremap S ^C
+
+let mapleader="\<space>"
+
+" navigate by method
+nnoremap <leader>m :vsc Edit.NextMethod<CR>
+nnoremap <leader>M :vsc Edit.PreviousMethod<CR>
+
+" jump between compilation errors
+" nnoremap <leader>e :vsc Edit.BriefGoToNextErrorTag<CR>
+nnoremap <leader>e :vsc View.NextError<CR>
+nnoremap <leader>E :vsc View.PreviousError<CR>
+
+" testing and debugging
+nnoremap <leader>t :vsc TestExplorer.RunAllTestsInContext<CR>
+nnoremap <leader>T :vsc TestExplorer.DebugAllTestsInContext<CR>
+
+" open the change parameter window
+nnoremap <leader>rp :vsc Refactor.ReorderParameters<CR>
+
+imap <C-e> <Esc>A
+imap <C-;> <Esc>A;<Esc>
