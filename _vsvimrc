@@ -1,4 +1,6 @@
-  " Tools > Options > Environment > Keyboard
+" ~/_vsvimrc
+
+" Tools > Options > Environment > Keyboard
 map gr :vsc Edit.FindAllReferences<CR>
 map gp :vsc Edit.PeekDefinition<CR>
 
