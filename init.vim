@@ -56,6 +56,9 @@ Plug 'benekastah/neomake', {
 
 call plug#end()
 
+" Puts the file name at the top of the editor
+set title
+
 " Color scheme
 if (has("termguicolors"))
  set termguicolors
