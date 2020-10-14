@@ -148,8 +148,8 @@ set nowrap
 " `:set spell` which will prompt for download.
 " set path to current file
 autocmd VimEnter * set path+=** 
-autocmd BufNewFile,BufRead *.txt setlocal spell spelllang=en_au
-autocmd BufNewFile,BufRead *.md setlocal spell spelllang=en_au
+autocmd BufNewFile,BufRead *.txt setlocal spell spelllang=en_us
+autocmd BufNewFile,BufRead *.md setlocal spell spelllang=en_us
 au BufNewFile,BufRead *.md setlocal textwidth=80
 
 " exit terminal
