@@ -7,6 +7,9 @@ Plug 'junegunn/vim-easy-align'
 " Theme
 Plug 'mhartington/oceanic-next'
 
+" Shows information on the bottom edge
+Plug 'vim-airline/vim-airline'
+
 " Just push tab!
 " Plug 'ervandew/supertab'
 
