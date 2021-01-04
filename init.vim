@@ -5,7 +5,8 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'junegunn/vim-easy-align'
 
 " Theme
-Plug 'mhartington/oceanic-next'
+" Plug 'altercation/vim-colors-solarized'
+Plug 'lifepillar/vim-solarized8'
 
 " Shows information on the bottom edge
 Plug 'vim-airline/vim-airline'
@@ -31,7 +32,6 @@ Plug 'bronson/vim-visual-star-search'
 Plug 'Raimondi/delimitMate'
 
 Plug 'mattn/emmet-vim', {'for': ['javascript', 'typescript', 'html']}
-Plug 'altercation/vim-colors-solarized'
 Plug 'benekastah/neomake', {
 \  'for': ['javascript', 'typescript', 'stylus']
 \} " show errors inline
@@ -64,7 +64,8 @@ if (has("termguicolors"))
  set termguicolors
 endif
 syntax enable
-colorscheme OceanicNext
+set background=light
+colorscheme solarized8 " OceanicNext
 
 " " delimit mate
 " let delimitMate_expand_cr = 1
