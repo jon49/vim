@@ -8,10 +8,8 @@ map gp :vsc Edit.PeekDefinition<CR>
 nnoremap gd :vsc Edit.GoToImplementation<CR>
 nnoremap gi :vsc Edit.GoToDefinition<CR>
 
-" Uses extension
-" https://marketplace.visualstudio.com/items?itemName=munyabe.ToggleComment
-nnoremap gcc :vsc Edit.ToggleComment<CR>
-vnoremap gc :vsc Edit.ToggleComment<CR><Esc><Esc>
+nnoremap gcc :vsc Edit.ToggleLineComment<CR>
+vnoremap gc :vsc Edit.ToggleLineComment<CR><Esc><Esc>
 nnoremap S ^C
 
 let mapleader="\<space>"
@@ -19,6 +17,9 @@ let mapleader="\<space>"
 " navigate by method
 nnoremap <leader>m :vsc Edit.NextMethod<CR>
 nnoremap <leader>M :vsc Edit.PreviousMethod<CR>
+
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
 
 " jump between compilation errors
 " nnoremap <leader>e :vsc Edit.BriefGoToNextErrorTag<CR>
